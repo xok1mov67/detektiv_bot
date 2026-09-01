@@ -185,7 +185,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     init_db()
     
-    # Render port xatosini aylanib o'tish uchun veb-serverni alohida oqimda yurgizamiz
+    # Render port talabini qondirish uchun veb-server
     threading.Thread(target=run_dummy_server, daemon=True).start()
 
     app = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -196,7 +196,10 @@ def main():
     app.add_handler(CallbackQueryHandler(button_click))
     
     print("Bot ishga tushdi...")
-    app.run_polling()
+    app.run_polling(drop_pending_updates=True)
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
